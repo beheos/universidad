@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-image: url('../img/developer2.png');
+      background-size: cover;
+     background-position: center;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      background-color: #1b1c1b42;
+    }
+
+    .right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      background-color: #1b1c1b42;
+    }
+    
+    .left h1{
+    	font-size: 3.5rem;
+    	color: #ffffffa6;
+    }
+    
+    h2{
+		text-align: center;    
+    }
+
+    p {
+      width: 80%;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+
+    form {
+      padding:20px 50px 30px 30px;
+      background :hsl(211deg 80% 25% / 90%);
+      width: 50%;
+      max-width: 350px;
+      color: #fff;
+    }
+
+    .form_input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .btnRegistro {
+      width: 100%;
+      padding: 0.5rem;
+      background-color: hsl(30deg 97% 50%);
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+
+input:focus{
+	border-color: hsl(30deg 97% 50%);
+	outline-color: hsl(30deg 97% 50%);
+}
