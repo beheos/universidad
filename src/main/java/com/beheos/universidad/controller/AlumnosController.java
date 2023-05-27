@@ -38,7 +38,7 @@ public class AlumnosController {
 	@Autowired
 	LicenciaturaService licenciaturaService;
 	
-	@GetMapping("/mostrar")
+	@GetMapping("/lista")
 	public String mostrar(Model model){
 		List<Licenciatura>licenciaturas = new ArrayList<Licenciatura>();
 		licenciaturas = licenciaturaService.listaLicenciaturas();

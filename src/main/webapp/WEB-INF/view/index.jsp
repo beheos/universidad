@@ -11,6 +11,7 @@
     <div class="left">
       <h1>¡INSCRIPCIÓN GRATIS!</h1>
       <p>Con nosotros tu puedes estudiar para que te conviertas en un desarrollador de aplicaciones web y trabajes desde cualquier parte del mundo no dejes pasar esta oportunidad inscribete ahora.</p>
+      <a href="<c:url value="/login"/>">Login</a>
     </div>
     <div class="right">
       <!--<div class="image"></div>-->
