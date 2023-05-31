@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+ <p><a href="/logout">Logout</a></p>
 	<table id="table-1">
 		<thead>
 			<tr>
