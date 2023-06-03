@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	 @Override
 	    protected void configure(HttpSecurity http) throws Exception {
-		 	//http.cors().and().csrf().disable();
+		 	http.cors().and().csrf().disable(); //se desahabilita dado que no se usuaran cookies
 	        http.authorizeRequests()
 	            .antMatchers("/alumnos/").hasAnyRole("ADMIN", "USER")
 	            .antMatchers("/admin").hasRole("ADMIN")

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.beheos.universidad.dao.ILicenciatura;
-import com.beheos.universidad.entity.Alumno;
 import com.beheos.universidad.entity.Licenciatura;
 
 @Service

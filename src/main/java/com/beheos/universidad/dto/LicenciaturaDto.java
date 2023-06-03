@@ -1,7 +1,5 @@
 package com.beheos.universidad.dto;
 
-import java.util.Date;
-
 public class LicenciaturaDto {
 	
 	private Long id;

@@ -9,12 +9,12 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -46,6 +46,23 @@ public class AlumnosController {
 				.collect(Collectors.toList());
 		model.addAttribute("alumnos", alumnoService.findAllAlumnos());
 		model.addAttribute("licenciaturas", listaLicenciaturasDto);
+		
+		
+		/*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+		    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		    ;
+		    // Aquí tienes el nombre de usuario del usuario autenticado
+		    System.out.println("Nombre de usuario: " + userDetails.getUsername() + " con el perfiel de " + userDetails.getAuthorities());
+		    
+		    for (GrantedAuthority authority : authentication.getAuthorities()) {
+		        String role = authority.getAuthority();
+		        // Aquí tienes el rol del usuario autenticado
+		        System.out.println("Rol: " + role);
+		    }
+		}*/
+		
+		
 		return "alumno/mostrar";
 	}
 	
@@ -57,21 +74,19 @@ public class AlumnosController {
 		return gson.toJson(alumnoDto);
 	}
 	
-	@PostMapping(value = "/")
-	public @ResponseBody Map<String, String> guardar(@RequestBody AlumnoDto alumnoDto){
-		Map<String, String> resp = new HashMap<>();
+	@PostMapping(value = "/modificar")
+	public String guardar(/*@RequestBody*/AlumnoDto alumnoDto){
 		try{
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			alumnoDto.setFecha_modificacion(Utilerias.getFormatoFecha(new Date()));
-			//ACA VA EL USUARIO DE SPRING
-			alumnoDto.setUsuarioModifico("ADMIN");
+			alumnoDto.setUsuarioModifico(username);
+			alumnoDto.setEliminado(false);
 			Alumno alumno = modelMapper.map(alumnoDto, Alumno.class);
 			alumnoService.guardar(alumno);
-			resp.put("mensaje", "Se modifico el suaurio correctamente");
 		}catch (Exception e) {
-			resp.put("mensaje", "Ocurrio un problema al modificarel alumno");
 			e.printStackTrace();
 		}
-		return resp;
+		return "redirect:/alumnos/";
 	}
 	
 	@GetMapping("/eliminar/{id}")
@@ -79,9 +94,9 @@ public class AlumnosController {
 		Map<String, String> resp = new HashMap<>();
 		Alumno alumno = alumnoService.findAlumno(id);
 		try {
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			alumno.setFecha_modificacion(Utilerias.getFormatoFecha(new Date()));
-			//ACA VA EL USUARIO DE SPRING
-			alumno.setUsuarioModifico("ADMIN");
+			alumno.setUsuarioModifico(username);
 			alumno.setEliminado(true);
 			alumnoService.guardar(alumno);
 			resp.put("mensaje", "Se elimino el usuario correctamente");

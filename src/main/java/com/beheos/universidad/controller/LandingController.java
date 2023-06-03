@@ -1,15 +1,11 @@
 package com.beheos.universidad.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.beheos.universidad.dto.AlumnoDto;
@@ -28,7 +23,6 @@ import com.beheos.universidad.entity.Licenciatura;
 import com.beheos.universidad.service.AlumnoService;
 import com.beheos.universidad.service.LicenciaturaService;
 import com.beheos.universidad.util.Utilerias;
-import com.google.gson.Gson;
 
 @Controller
 public class LandingController {
@@ -56,7 +50,7 @@ public class LandingController {
 		Licenciatura licenciatura = licenciaturaService.ObtenerLicenciatura(alumnoDto.getLicenciatura().getId());
 		if(licenciatura.getInscritos() == null || licenciatura.getInscritos() < licenciatura.getLimiteCupo()){
 			try {
-				//aca va a ir el usuario del spring segurity
+				//Dado que es un usuario no logeado por defecto se va como USER
 				alumnoDto.setUsuarioIngreso("USER");
 				alumnoDto.setFecha_ingreso(Utilerias.getFormatoFecha(new Date()));
 				alumnoDto.setMatricula(Utilerias.getGenerarMatricula());

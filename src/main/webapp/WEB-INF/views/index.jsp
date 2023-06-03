@@ -27,6 +27,7 @@
                             <option value="${curso.id}">${curso.nombre}</option>
                         </c:forEach>
                     </select>
+                    <input type="hidden" name="${_csrf.parameterName}" id="token" value="${_csrf.token}" />
             <input type="submit" value="Registro" id="btnRegistro" class="btnRegistro"/>
         </form>
     </div>
