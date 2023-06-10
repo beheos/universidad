@@ -54,7 +54,7 @@ const validarFormulario = () => {
     }else{
         correo.blur();
     }
-    if(licenciatura.value == ''){
+    if(licenciatura.value == '-1'){
         licenciatura.focus();
         return false;
     }else{

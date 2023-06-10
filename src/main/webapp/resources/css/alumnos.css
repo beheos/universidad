@@ -40,6 +40,7 @@ table {
   border-collapse: collapse;
   width: 70%;
   margin: auto;
+  margin-top: 30px; 
 }
 
 table, th, td {
@@ -75,6 +76,7 @@ th {
   border: 1px solid #888;
   border-radius : 10px;
   width: 25%;
+  min-width: 300px;
 }
 
 .close {
@@ -126,6 +128,9 @@ textarea, select {
 	background: #4CAF50;
 	color: #fff;
 	cursor: pointer;
+	padding: 10px 20px;
+	font-size: 14px;
+	border: none;
 }
 
 /* Estilo para el botón de envío */

@@ -7,11 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+	 <header>
+    	<a class="liga" href="<c:url value="/login"/>">Login</a>
+    </header>
   <div class="container">
     <div class="left">
       <h1>¡INSCRIPCIÓN GRATIS!</h1>
       <p>Con nosotros tu puedes estudiar para que te conviertas en un desarrollador de aplicaciones web y trabajes desde cualquier parte del mundo no dejes pasar esta oportunidad inscribete ahora.</p>
-      <a href="<c:url value="/login"/>">Login</a>
     </div>
     <div class="right">
       <!--<div class="image"></div>-->

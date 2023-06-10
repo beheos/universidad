@@ -9,6 +9,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +19,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.beheos.universidad.dao.IAlumnoDao;
 import com.beheos.universidad.dto.AlumnoDto;
 import com.beheos.universidad.dto.LicenciaturaDto;
 import com.beheos.universidad.entity.Alumno;
@@ -37,34 +42,18 @@ public class AlumnosController {
 	AlumnoService alumnoService;
 	@Autowired
 	LicenciaturaService licenciaturaService;
+	@Autowired
+	IAlumnoDao iAlumnoDao;
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/")
-	public String mostrar(Model model){
-		List<Licenciatura>licenciaturas = new ArrayList<Licenciatura>();
-		licenciaturas = licenciaturaService.listaLicenciaturas();
-		List<LicenciaturaDto> listaLicenciaturasDto = licenciaturas.stream().map(licenciatura -> modelMapper.map(licenciatura, LicenciaturaDto.class))
-				.collect(Collectors.toList());
-		model.addAttribute("alumnos", alumnoService.findAllAlumnos());
-		model.addAttribute("licenciaturas", listaLicenciaturasDto);
-		
-		
-		/*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-		    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		    ;
-		    // Aquí tienes el nombre de usuario del usuario autenticado
-		    System.out.println("Nombre de usuario: " + userDetails.getUsername() + " con el perfiel de " + userDetails.getAuthorities());
-		    
-		    for (GrantedAuthority authority : authentication.getAuthorities()) {
-		        String role = authority.getAuthority();
-		        // Aquí tienes el rol del usuario autenticado
-		        System.out.println("Rol: " + role);
-		    }
-		}*/
-		
-		
-		return "alumno/mostrar";
-	}
+    public String getProductos(@RequestParam(defaultValue = "0") int page, Model model) {
+        Pageable pageable = PageRequest.of(page, 5); // 10 productos por página
+        Page<Alumno> productoPage = alumnoService.findAllAlumnos(pageable);
+        model.addAttribute("page", productoPage);
+        model.addAttribute("licenciaturas", licenciaturaService.listaLicenciaturas());
+        return "alumno/mostrar2";
+    }
 	
 	@GetMapping("/editar/{id}")
 	public @ResponseBody String editar(@PathVariable("id") Long id, Model model){
@@ -75,7 +64,7 @@ public class AlumnosController {
 	}
 	
 	@PostMapping(value = "/modificar")
-	public String guardar(/*@RequestBody*/AlumnoDto alumnoDto){
+	public String guardar(AlumnoDto alumnoDto){
 		try{
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			alumnoDto.setFecha_modificacion(Utilerias.getFormatoFecha(new Date()));

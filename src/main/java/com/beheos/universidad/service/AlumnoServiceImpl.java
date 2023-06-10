@@ -5,6 +5,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.beheos.universidad.dao.IAlumnoDao;
@@ -38,13 +40,15 @@ public class AlumnoServiceImpl implements AlumnoService {
 	}
 
 	@Override
-	public List<Alumno> findAllAlumnos() {
-		return iAlumnoDao.findAllAlumnos();
-	}
-
-	@Override
 	public Alumno findAlumno(Long idAlumno) {
 		return iAlumnoDao.findById(idAlumno).orElse(null);
 	}
+
+	@Override
+	public Page<Alumno> findAllAlumnos(Pageable pageable) {
+		return iAlumnoDao.findAllAlumnos(pageable);
+	}
+
+	
 
 }
